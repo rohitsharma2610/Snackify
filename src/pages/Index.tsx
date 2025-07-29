@@ -18,19 +18,16 @@ const Index = () => {
 
     setIsGenerating(true);
     
-    // Add a small delay to make it feel like AI is working
-    setTimeout(() => {
-      try {
-        const newRecipe = generateRecipe(ingredients);
-        setRecipe(newRecipe);
-        toast.success("Recipe generated! Time to get cooking 🍳");
-      } catch (error) {
-        toast.error("Oops! Something went wrong. Try again with different ingredients.");
-        console.error("Recipe generation error:", error);
-      } finally {
-        setIsGenerating(false);
-      }
-    }, 1500);
+    try {
+      const newRecipe = await generateRecipe(ingredients);
+      setRecipe(newRecipe);
+      toast.success("Recipe generated! Time to get cooking 🍳");
+    } catch (error) {
+      toast.error("Oops! Something went wrong. Try again with different ingredients.");
+      console.error("Recipe generation error:", error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleStartOver = () => {
